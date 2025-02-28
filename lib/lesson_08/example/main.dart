@@ -33,23 +33,31 @@ class MyApp extends StatelessWidget {
         log('Setting');
         switch (settings.name) {
           case RouteNamed.onBoardPage:
-            return MaterialPageRoute(
-              builder: (context) => OnBoardPage(),
+            return PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  OnBoardPage(),
+              transitionDuration: Duration(seconds: 1),
+              reverseTransitionDuration: Duration(seconds: 3),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return SlideTransition(
+                  position:
+                      Tween<Offset>(begin: Offset(0, 1), end: Offset(0, 0))
+                          .animate(animation),
+                  child: child,
+                );
+              },
             );
 
           case RouteNamed.homePage:
             final data = settings.arguments as Map<String, dynamic>;
             final name = data['nameKey'] as String;
-            return MaterialPageRoute(
-              builder: (context) => HomePage(
-                name: name,
-              ),
-            );
+            return PageTransitionManagement.slideTransition(HomePage(
+              name: name,
+            ));
 
           case RouteNamed.loginPage:
-            return MaterialPageRoute(
-              builder: (context) => LoginPage(),
-            );
+            return PageTransitionManagement.slideTransition(LoginPage());
 
           default:
             return MaterialPageRoute(
@@ -60,6 +68,24 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class PageTransitionManagement {
+  static PageRouteBuilder<dynamic> slideTransition(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionDuration: Duration(seconds: 1),
+      reverseTransitionDuration: Duration(seconds: 3),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return SlideTransition(
+          position: Tween<Offset>(begin: Offset(0, 1), end: Offset(0, 0))
+              .animate(animation),
+          child: child,
+        );
+      },
+    );
+  }
+}
+
 
 class PageNotFound extends StatelessWidget {
   const PageNotFound({super.key});
@@ -118,10 +144,11 @@ class _OnBoardPageState extends State<OnBoardPage> {
                       isDismissible: false,
                       builder: (context) {
                         return Container(
-                          // height: 400,
+                            // height: 400,
                             color: Colors.red,
                             child: Center(
-                              child: Text('Ban chua nhap ten, ban co muon tiep tuc'),
+                              child: Text(
+                                  'Ban chua nhap ten, ban co muon tiep tuc'),
                             ));
                       },
                     );
