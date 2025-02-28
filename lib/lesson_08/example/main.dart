@@ -166,12 +166,12 @@ class _OnBoardPageState extends State<OnBoardPage> {
                     // );
                   }
 
-                  // if (result ?? false) {
-                  //   Navigator.pushNamed(context, RouteNamed.homePage,
-                  //       arguments: <String, dynamic>{
-                  //         'nameKey': nameFromLogin,
-                  //       });
-                  // }
+                  if (result ?? false) {
+                    Navigator.pushNamed(context, RouteNamed.homePage,
+                        arguments: <String, dynamic>{
+                          'nameKey': nameFromLogin,
+                        });
+                  }
                 },
                 child: Text('Go Home')),
             ElevatedButton(
