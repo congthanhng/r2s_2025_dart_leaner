@@ -1,4 +1,4 @@
-import 'app_prefrerence.dart';
+import '../core/local_storage/app_prefrerence.dart';
 
 class OnboardStorageKey {
   static const String isFirstOpenKey = 'is_first_open_key';

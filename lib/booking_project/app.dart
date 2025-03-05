@@ -15,8 +15,10 @@ class BookingApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: RouteNamed.splashPage,
+      initialRoute: RouteNamed.homePage,
       onGenerateRoute: RouteManagement.generateRoute,
     );
   }
 }
+
+//DRY (Don't Repeat Yourself), KISS (Keep It Simple Stupid)
