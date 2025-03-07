@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:dart_learner/booking_project/services/onboard_services.dart';
-import 'package:dart_learner/booking_project/core/route/route_named.dart';
+import 'package:dart_learner/app_projects/booking_project/services/onboard_services.dart';
+import 'package:dart_learner/app_projects/booking_project/core/route/route_named.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {

@@ -1,5 +1,5 @@
-import 'package:dart_learner/booking_project/core/route/route_named.dart';
-import 'package:dart_learner/booking_project/presentations/widgets/ui_section.dart';
+import 'package:dart_learner/app_projects/booking_project/core/route/route_named.dart';
+import 'package:dart_learner/app_projects/booking_project/presentations/widgets/ui_section.dart';
 import 'package:flutter/material.dart';
 
 import '../home_data.dart';

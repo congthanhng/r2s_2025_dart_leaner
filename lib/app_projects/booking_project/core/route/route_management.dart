@@ -1,8 +1,8 @@
-import 'package:dart_learner/booking_project/core/route/route_named.dart';
-import 'package:dart_learner/booking_project/presentations/notification/notification_page.dart';
-import 'package:dart_learner/booking_project/presentations/onboard/onboard_page.dart';
-import 'package:dart_learner/booking_project/presentations/restaurant_list/restaurant_list_page.dart';
-import 'package:dart_learner/booking_project/presentations/splash/splash_page.dart';
+import 'package:dart_learner/app_projects/booking_project/core/route/route_named.dart';
+import 'package:dart_learner/app_projects/booking_project/presentations/notification/notification_page.dart';
+import 'package:dart_learner/app_projects/booking_project/presentations/onboard/onboard_page.dart';
+import 'package:dart_learner/app_projects/booking_project/presentations/restaurant_list/restaurant_list_page.dart';
+import 'package:dart_learner/app_projects/booking_project/presentations/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentations/home/home_page.dart';

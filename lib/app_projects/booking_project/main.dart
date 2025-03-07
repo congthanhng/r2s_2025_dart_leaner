@@ -1,4 +1,4 @@
-import 'package:dart_learner/booking_project/core/local_storage/app_prefrerence.dart';
+import 'package:dart_learner/app_projects/booking_project/core/local_storage/app_prefrerence.dart';
 import 'package:flutter/material.dart';
 
 import 'app.dart';

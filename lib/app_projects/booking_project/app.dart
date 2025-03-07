@@ -1,4 +1,4 @@
-import 'package:dart_learner/booking_project/core/route/route_named.dart';
+import 'package:dart_learner/app_projects/booking_project/core/route/route_named.dart';
 import 'package:flutter/material.dart';
 
 import 'core/route/route_management.dart';
