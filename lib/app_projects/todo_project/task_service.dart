@@ -12,6 +12,9 @@ class TaskService {
   static Future<List<Task>> getTasksFromServer() async {
     var url = Uri.https(domain, 'api/task');
     var response = await http.get(url);
+    // if(response.statusCode != 200) {
+    //   //error
+    // }
     final listJson = jsonDecode(response.body) as List<dynamic>;
 
     final List<Task> results = listJson.map((e) => Task.fromJson(e)).toList();
@@ -20,10 +23,7 @@ class TaskService {
 
   static Future<Task> createNewTask({required String taskName}) async {
     var url = Uri.https(domain, 'api/task');
-    final taskRequestData = {
-      "Name": taskName,
-      "isCompleted": false
-    };
+    final taskRequestData = {"Name": taskName, "isCompleted": false};
 
     final json = jsonEncode(taskRequestData);
 
@@ -34,4 +34,35 @@ class TaskService {
 
     return task;
   }
+
+  static Future<Task> updateTask(
+      {required String id, required bool isCompleted}) async {
+    var url = Uri.https(domain, 'api/task/$id');
+    final taskRequestData = {
+      // "Name": taskName,
+      "isCompleted": isCompleted
+    };
+    //
+    final json = jsonEncode(taskRequestData);
+    //
+    var response = await http.put(url, headers: header, body: json);
+    //
+    final data = jsonDecode(response.body) as Map<String, dynamic>;
+    final Task task = Task.fromJson(data);
+
+    return task;
+  }
+
+  static Future<bool> deleteTask({required String id}) async {
+    var url = Uri.https(domain, 'api/task/$id');
+
+    var response = await http.delete(
+      url,
+      headers: header,
+    );
+    if (response.statusCode == 200) return true;
+
+    return false;
+  }
+
 }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'task.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppPreference.init();
@@ -31,53 +30,65 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Task> tasks = <Task>[];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome'),
         actions: [
-          IconButton(onPressed: () async{
-            final newTask = await showDialog(context: context, builder: (context) {
-              String taskName = '';
-              return AlertDialog(
-                title: Text('Create new Task'),
-                content: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Enter task name',
-                  ),
-                  onChanged: (value) {
-                    taskName = value;
+          IconButton(
+              onPressed: () async {
+                final newTask = await showDialog(
+                  context: context,
+                  builder: (context) {
+                    String taskName = '';
+                    return AlertDialog(
+                      title: Text('Create new Task'),
+                      content: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Enter task name',
+                        ),
+                        onChanged: (value) {
+                          taskName = value;
+                        },
+                      ),
+                      actions: [
+                        TextButton(
+                            onPressed: () async {
+                              //TODO: post to server
+                              final result = await TaskService.createNewTask(
+                                  taskName: taskName);
+                              Navigator.pop(context, result);
+                            },
+                            child: Text('Save')),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('Cancel'))
+                      ],
+                    );
                   },
-                ),
-                actions: [
-                  TextButton(onPressed: () async{
-                    //TODO: post to server
-                    final result = await TaskService.createNewTask(taskName: taskName);
-                    Navigator.pop(context, result);
-                  }, child: Text('Save')),
-                  TextButton(onPressed: () {
-                    Navigator.pop(context);
-                  }, child: Text('Cancel'))
-                ],
-              );
-            },) as Task?;
-            print('HELLO: ${newTask?.name}');
-            if(newTask !=null){
-              tasks = tasks.reversed.toList();
-              tasks.add(newTask);
-              tasks = tasks.reversed.toList();
-              setState(() {});
-            }
-
-          }, icon: Icon(Icons.upload)),
-          IconButton(onPressed: () async{
-            //TODO fetch data from API
-            tasks = await TaskService.getTasksFromServer();
-            tasks = tasks.reversed.toList();
-            setState(() {});
-          }, icon: Icon(Icons.refresh))
+                ) as Task?;
+                print('HELLO: ${newTask?.name}');
+                if (newTask != null) {
+                  tasks = tasks.reversed.toList();
+                  tasks.add(newTask);
+                  tasks = tasks.reversed.toList();
+                  setState(() {});
+                }
+              },
+              icon: Icon(Icons.upload)),
+          IconButton(
+              onPressed: () async {
+                //TODO fetch data from API
+                tasks = await TaskService.getTasksFromServer();
+                tasks = tasks.reversed.toList();
+                setState(() {});
+              },
+              icon: Icon(Icons.refresh))
         ],
       ),
       body: SafeArea(child: _buildLisTaskView(context)),
@@ -95,11 +106,34 @@ class _HomePageState extends State<HomePage> {
             children: [
               Checkbox(
                 value: tasks[index].isCompleted,
-                onChanged: (value) {
-                  //TODO
+                onChanged: (value) async {
+                  final result = await TaskService.updateTask(
+                      id: tasks[index].id ?? '', isCompleted: value ?? false);
+                  final taskInList = tasks.firstWhere(
+                    (element) => element.id == result.id,
+                  );
+                  taskInList.isCompleted = result.isCompleted;
+                  setState(() {});
                 },
               ),
-              Text(tasks[index].name??'')
+              Text(tasks[index].name ?? ''),
+              Spacer(),
+              IconButton(
+                  onPressed: () async {
+                    //TODO
+                    final result =
+                        await TaskService.deleteTask(id: tasks[index].id ?? '');
+                    if (result == true) {
+                      tasks.removeAt(index);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Delete Success'),backgroundColor: Colors.green,));
+                      setState(() {});
+                    }
+                  },
+                  icon: Icon(
+                    Icons.clear,
+                    color: Colors.red,
+                  ))
             ],
           ),
         );

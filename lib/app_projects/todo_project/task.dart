@@ -1,7 +1,7 @@
 class Task {
   final String? id;
   final String? name;
-  final bool? isCompleted;
+  bool? isCompleted;
 
   Task({ this.id, required this.name, this.isCompleted = false});
 
