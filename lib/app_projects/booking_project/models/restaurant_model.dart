@@ -3,9 +3,10 @@ class Restaurant {
   String? descriptionRestaurant;
   String? address;
   String? image;
+  String? id;
 
   Restaurant(
-      {this.nameRestaurant,
+      {this.id,this.nameRestaurant,
         this.descriptionRestaurant,
         this.address,
         this.image});

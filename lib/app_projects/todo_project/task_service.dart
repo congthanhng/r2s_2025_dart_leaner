@@ -17,6 +17,7 @@ class TaskService {
     // if(response.statusCode != 200) {
     //   //error
     // }
+    await Future.delayed(Duration(seconds: 3));
     final response = taskMockDataJson;
     // final listJson = jsonDecode(response.body) as List<dynamic>;
 
