@@ -1,5 +1,6 @@
 import 'package:dart_learner/app_projects/booking_project/core/local_storage/app_prefrerence.dart';
 import 'package:dart_learner/app_projects/todo_project/bloc/task_bloc.dart';
+import 'package:dart_learner/app_projects/todo_project/bloc2/product_bloc.dart';
 import 'package:dart_learner/app_projects/todo_project/task_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,8 +18,15 @@ class TodoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => TaskBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<TaskBloc>(
+          create: (context) => TaskBloc(),
+        ),
+        BlocProvider<ProductBloc>(
+          create: (context) => ProductBloc(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomePage(),
@@ -43,50 +51,44 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Welcome'),
         actions: [
-          // IconButton(
-          //     onPressed: () async {
-          //       final newTask = await showDialog(
-          //         context: context,
-          //         builder: (context) {
-          //           String taskName = '';
-          //           return AlertDialog(
-          //             title: Text('Create new Task'),
-          //             content: TextFormField(
-          //               decoration: InputDecoration(
-          //                 border: OutlineInputBorder(),
-          //                 hintText: 'Enter task name',
-          //               ),
-          //               onChanged: (value) {
-          //                 taskName = value;
-          //               },
-          //             ),
-          //             actions: [
-          //               TextButton(
-          //                   onPressed: () async {
-          //                     //TODO: post to server
-          //                     final result = await TaskService.createNewTask(
-          //                         taskName: taskName);
-          //                     Navigator.pop(context, result);
-          //                   },
-          //                   child: Text('Save')),
-          //               TextButton(
-          //                   onPressed: () {
-          //                     Navigator.pop(context);
-          //                   },
-          //                   child: Text('Cancel'))
-          //             ],
-          //           );
-          //         },
-          //       ) as Task?;
-          //       print('HELLO: ${newTask?.name}');
-          //       if (newTask != null) {
-          //         tasks = tasks.reversed.toList();
-          //         tasks.add(newTask);
-          //         tasks = tasks.reversed.toList();
-          //         setState(() {});
-          //       }
-          //     },
-          //     icon: Icon(Icons.upload)),
+          IconButton(
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) {
+                    String taskName = '';
+                    return AlertDialog(
+                      title: Text('Create new Task'),
+                      content: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Enter task name',
+                        ),
+                        onChanged: (value) {
+                          taskName = value;
+                        },
+                      ),
+                      actions: [
+                        TextButton(
+                            onPressed: () async {
+                              //TODO: post to server
+                              context
+                                  .read<TaskBloc>()
+                                  .add(TaskCreatedNew(taskName));
+                              Navigator.pop(context);
+                            },
+                            child: Text('Save')),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('Cancel'))
+                      ],
+                    );
+                  },
+                ) as Task?;
+              },
+              icon: Icon(Icons.upload)),
           IconButton(
               onPressed: () async {
                 context.read<TaskBloc>().add(TaskRefreshed());
@@ -94,22 +96,36 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.refresh))
         ],
       ),
-      body: BlocBuilder<TaskBloc, TaskState>(
-        builder: (context, state) {
-          final isLoading = state is TaskLoading;
-          List<Task> data = [];
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<TaskBloc, TaskState>(
+            listener: (context, state) {
+              // TODO: implement listener
+            },
+          ),
+          BlocListener<ProductBloc, ProductState>(
+            listener: (context, state) {
+              // TODO: implement listener
+            },
+          ),
+        ],
+        child: BlocBuilder<TaskBloc, TaskState>(
+          builder: (context, state) {
+            final isLoading = state is TaskLoading;
+            List<Task> data = [];
 
-          if(state is TaskRefreshedSuccess){
-            data = state.tasksFromServer;
-          }
-          return SafeArea(
-              child: Stack(
-            children: [
-              _buildLisTaskView(context, data),
-              if (isLoading) Center(child: CircularProgressIndicator()),
-            ],
-          ));
-        },
+            if (state is TaskRefreshedSuccess) {
+              data = state.tasksFromServer;
+            }
+            return SafeArea(
+                child: Stack(
+              children: [
+                _buildLisTaskView(context, data),
+                if (isLoading) Center(child: CircularProgressIndicator()),
+              ],
+            ));
+          },
+        ),
       ),
     );
   }
@@ -156,6 +172,23 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.red,
                   ))
             ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TaskBloc, TaskState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: Center(
+            child: Text('${state.runtimeType}'),
           ),
         );
       },

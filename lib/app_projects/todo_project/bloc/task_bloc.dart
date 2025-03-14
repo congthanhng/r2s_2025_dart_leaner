@@ -15,8 +15,10 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       emit(TaskRefreshedSuccess(tasksFromServer: tasks));
     });
 
-    on<TaskCreatedNew>((event, emit) {
-      // TODO: implement event handler
+    on<TaskCreatedNew>((event, emit) async {
+      final name = event.name;
+      await TaskService.createNewTask(taskName: name);
+      add(TaskRefreshed());
     });
   }
 }

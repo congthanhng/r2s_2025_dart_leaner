@@ -12,16 +12,16 @@ class TaskService {
   };
 
   static Future<List<Task>> getTasksFromServer() async {
-    // var url = Uri.https(domain, 'api/task');
-    // var response = await http.get(url);
+    var url = Uri.https(domain, 'api/task');
+    var response = await http.get(url);
     // if(response.statusCode != 200) {
     //   //error
     // }
     await Future.delayed(Duration(seconds: 3));
-    final response = taskMockDataJson;
-    // final listJson = jsonDecode(response.body) as List<dynamic>;
+    // final response = taskMockDataJson;
+    final listJson = jsonDecode(response.body) as List<dynamic>;
 
-    final List<Task> results = response.map((e) => Task.fromJson(e)).toList();
+    final List<Task> results = listJson.map((e) => Task.fromJson(e)).toList();
     return results;
   }
 
