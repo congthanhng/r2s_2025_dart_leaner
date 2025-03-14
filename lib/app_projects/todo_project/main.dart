@@ -1,6 +1,6 @@
 import 'package:dart_learner/app_projects/booking_project/core/local_storage/app_prefrerence.dart';
 import 'package:dart_learner/app_projects/todo_project/bloc/task_bloc.dart';
-import 'package:dart_learner/app_projects/todo_project/bloc2/product_bloc.dart';
+import 'package:dart_learner/app_projects/todo_project/cubit/todo_cubit.dart';
 import 'package:dart_learner/app_projects/todo_project/task_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,8 +23,8 @@ class TodoApp extends StatelessWidget {
         BlocProvider<TaskBloc>(
           create: (context) => TaskBloc(),
         ),
-        BlocProvider<ProductBloc>(
-          create: (context) => ProductBloc(),
+        BlocProvider<TodoCubit>(
+          create: (context) => TodoCubit(),
         ),
       ],
       child: MaterialApp(
@@ -91,7 +91,8 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.upload)),
           IconButton(
               onPressed: () async {
-                context.read<TaskBloc>().add(TaskRefreshed());
+                // context.read<TaskBloc>().add(TaskRefreshed());
+                context.read<TodoCubit>().refreshData();
               },
               icon: Icon(Icons.refresh))
         ],
@@ -103,18 +104,18 @@ class _HomePageState extends State<HomePage> {
               // TODO: implement listener
             },
           ),
-          BlocListener<ProductBloc, ProductState>(
+          BlocListener<TodoCubit, TodoState>(
             listener: (context, state) {
               // TODO: implement listener
             },
           ),
         ],
-        child: BlocBuilder<TaskBloc, TaskState>(
+        child: BlocBuilder<TodoCubit, TodoState>(
           builder: (context, state) {
-            final isLoading = state is TaskLoading;
+            final isLoading = state is TodoLoading;
             List<Task> data = [];
 
-            if (state is TaskRefreshedSuccess) {
+            if (state is TodoRefreshedSuccess) {
               data = state.tasksFromServer;
             }
             return SafeArea(
@@ -155,17 +156,7 @@ class _HomePageState extends State<HomePage> {
               Spacer(),
               IconButton(
                   onPressed: () async {
-                    //TODO
-                    final result =
-                        await TaskService.deleteTask(id: tasks[index].id ?? '');
-                    if (result == true) {
-                      tasks.removeAt(index);
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text('Delete Success'),
-                        backgroundColor: Colors.green,
-                      ));
-                      setState(() {});
-                    }
+                    context.read<TodoCubit>().deleteTask(tasks[index].id ?? '');
                   },
                   icon: Icon(
                     Icons.clear,
