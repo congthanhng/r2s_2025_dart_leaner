@@ -1,3 +1,6 @@
+import 'package:dart_learner/app_projects/booking_project/models/restaurant_model.dart';
+import 'package:dart_learner/app_projects/booking_project/models/user_model.dart';
+
 enum ReservationStatus {
   finished,
   pending,
@@ -25,23 +28,25 @@ enum ReservationStatus {
 
 class Reservation {
   final String? id;
-  final DateTime? createdDate;
-  final DateTime? updatedDate;
-  final String? restaurantId;
-  final String? restaurantName;
-  final int? peopleCount;
-  final String? timeRange;
-  final ReservationStatus? status;
+  DateTime? createdDate;
+  DateTime? updatedDate;
+  Restaurant? restaurantInfo;
+  int? peopleCount;
+  String? timeRange;
+  ReservationStatus? status;
+  User?  userInfo;
+  String? notes;
 
   Reservation({
     this.id,
     this.createdDate,
     this.updatedDate,
-    this.restaurantId,
-    this.restaurantName,
     this.peopleCount,
     this.timeRange,
     this.status = ReservationStatus.pending,
+    this.restaurantInfo,
+    this.userInfo,
+    this.notes,
   });
 
   static Reservation fromJson(Map<String, dynamic> json) {

@@ -70,7 +70,7 @@ class DiscountCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(
-                "asset/beef.png",
+                "assets/images/img_food.png",
                 width: 80,
                 height: 80,
                 fit: BoxFit.cover,

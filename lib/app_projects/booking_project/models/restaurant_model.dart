@@ -11,3 +11,8 @@ class Restaurant {
         this.address,
         this.image});
 }
+
+final mockRestaurant = Restaurant(
+  address: 'Vincom Center, No. 70 Le Thanh Ton, Ben Nghe Ward, District 1, HCMC',
+  nameRestaurant: 'An BBQ Dong Khoi'
+);

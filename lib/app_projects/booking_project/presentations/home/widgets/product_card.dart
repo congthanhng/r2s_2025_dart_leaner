@@ -1,3 +1,4 @@
+import 'package:dart_learner/app_projects/booking_project/core/route/route_named.dart';
 import 'package:flutter/material.dart';
 
 import 'button_reserve.dart';
@@ -70,7 +71,11 @@ class ProductCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                ButtonReserve(text: "Reserve", onPressed: () {}),
+                ButtonReserve(text: "Reserve", onPressed: () {
+                  Navigator.pushNamed(context, RouteNamed.reservationPage);
+
+
+                }),
               ],
             ),
           ),
