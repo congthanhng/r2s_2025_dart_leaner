@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'button_reserve.dart';
@@ -8,10 +7,11 @@ class ProductCard extends StatelessWidget {
   final String address;
   final String? image;
 
-  const ProductCard({super.key,
-    required this.nameProduct,
-    required this.address,
-    this.image});
+  const ProductCard(
+      {super.key,
+      required this.nameProduct,
+      required this.address,
+      this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class ProductCard extends StatelessWidget {
       child: Column(
         children: [
           Image.asset(
-            "asset/img_product_beef.png",
+            "assets/images/img_food.png",
             width: 148,
             height: 100,
             fit: BoxFit.contain,

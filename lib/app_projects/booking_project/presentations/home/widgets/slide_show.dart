@@ -27,11 +27,11 @@ class _SlideShowState extends State<SlideShow> {
               autoPlayInterval: 2000,
               children: [
                 Image.asset(
-                  "asset/img_slideshow.png",
+                  "assets/images/img_banner.png",
                   fit: BoxFit.cover,
                 ),
-                Image.asset("asset/food.png", fit: BoxFit.contain),
-                Image.asset("asset/beef.png", fit: BoxFit.contain)
+                Image.asset("assets/images/img_banner.png", fit: BoxFit.contain),
+                Image.asset("assets/images/img_banner.png", fit: BoxFit.contain)
               ])
         ],
       ),

@@ -30,7 +30,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.asset(
-                "asset/restaurant.png",
+                "assets/images/img_our_restaurant.png",
                 width: 327,
                 height: 120,
                 fit: BoxFit.cover,
@@ -80,7 +80,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
                   ),
                   SizedBox(width: 12),
                   Image.asset(
-                    "asset/logorestaurant.png",
+                    "assets/images/logo_no_text.png",
                     width: 50,
                     height: 50,
                     fit: BoxFit.contain,

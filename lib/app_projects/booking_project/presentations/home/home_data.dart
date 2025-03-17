@@ -8,25 +8,25 @@ class HomePageData {
         nameProduct: "Beef Ribs",
         descriptionProduct: "Good Beef",
         price: 15.00,
-        imageProduct: "img_product_beef.png",
+        imageProduct: "assets/images/img_food.png",
         address: "An Duong Vuong, Q5"),
     Product(
         nameProduct: "Beef Bacon",
         descriptionProduct: "Excellent Dish",
         price: 15.00,
-        imageProduct: "img_product_beef.png",
+        imageProduct: "assets/images/img_food.png",
         address: "Xuan Dieu, Tan Binh"),
     Product(
         nameProduct: "Fried Chicken",
         descriptionProduct: "Chicken",
         price: 15.00,
-        imageProduct: "img_product_beef.png",
+        imageProduct: "assets/images/img_food.png",
         address: "An Duong Vuong, Q5"),
     Product(
         nameProduct: "Salad mix fruits",
         descriptionProduct: "Good Salad",
         price: 15.00,
-        imageProduct: "img_product_beef.png",
+        imageProduct: "assets/images/img_food.png",
         address: "An Duong Vuong, Q5"),
   ];
 
