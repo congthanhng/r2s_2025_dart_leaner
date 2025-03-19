@@ -38,8 +38,10 @@ class RouteManagement {
               return ReservationConfirmPage(data: data,);
     } );
       case RouteNamed.reservationSuccessPage:
+        final package = settings.arguments as Map<String, dynamic>;
+        final id = package['reservation_id'] as String;
         return MaterialPageRoute(
-            builder: (context) => ReservationSuccessPage());
+            builder: (context) => ReservationSuccessPage(id: id,));
       default:
         return MaterialPageRoute(builder: (context) => OnboardPage());
     }

@@ -1,7 +1,10 @@
+import 'package:dart_learner/app_projects/booking_project/core/route/route_named.dart';
 import 'package:flutter/material.dart';
 
 class ReservationSuccessPage extends StatelessWidget {
-  const ReservationSuccessPage({super.key});
+  const ReservationSuccessPage({super.key, required this.id});
+
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,7 @@ class ReservationSuccessPage extends StatelessWidget {
                     child: IconButton(
                       icon: Icon(Icons.close),
                       onPressed: () {
-                        Navigator.pop(context);
+                        // Navigator.popUntil(context, (route) => route.settings.name == RouteNamed.homePage);
                       },
                     ),
                   ),
@@ -62,7 +65,7 @@ class ReservationSuccessPage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "Your deposit for Reservation 716001\nis 200.000VND.",
+                    "Your deposit for Reservation $id\nis 200.000VND.",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16),
                   ),

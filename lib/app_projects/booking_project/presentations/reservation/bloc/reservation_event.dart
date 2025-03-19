@@ -4,3 +4,9 @@ part of 'reservation_bloc.dart';
 sealed class ReservationEvent {}
 
 class ReservationFetchRestaurant extends ReservationEvent {}
+
+class ReservationConfirmed extends ReservationEvent{
+  final Reservation reservation;
+
+  ReservationConfirmed(this.reservation);
+}

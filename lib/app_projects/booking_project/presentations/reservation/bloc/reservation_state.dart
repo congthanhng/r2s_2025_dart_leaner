@@ -12,3 +12,10 @@ final class ReservationFetchRestaurantSuccess extends ReservationState {
 
   ReservationFetchRestaurantSuccess(this.restaurant);
 }
+
+final class ReservationConfirmSuccess extends ReservationState {
+  final String id;
+
+  ReservationConfirmSuccess(this.id);
+}
+
