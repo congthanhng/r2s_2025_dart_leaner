@@ -36,6 +36,7 @@ class Reservation {
   ReservationStatus? status;
   User?  userInfo;
   String? notes;
+  int? starCount;
 
   Reservation({
     this.id,
@@ -47,6 +48,7 @@ class Reservation {
     this.restaurantInfo,
     this.userInfo,
     this.notes,
+    this.starCount
   });
 
   static Reservation fromJson(Map<String, dynamic> json) {
